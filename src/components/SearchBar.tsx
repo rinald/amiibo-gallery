@@ -13,7 +13,7 @@ type Props = {
 }
 
 const SearchBar: React.FC<Props> = ({ search }) => {
-  const textField = useInput('text')
+  const { setValue: setName, ...textField } = useInput('text')
   const nameSuggestions = useAutocomplete(textField.value)
 
   return (
@@ -25,7 +25,12 @@ const SearchBar: React.FC<Props> = ({ search }) => {
               <Popover.Panel static className='absolute z-10 mx-5 my-12'>
                 <div className='flex flex-col divide-y gap-2 bg-gray-200 p-4 w-64 sm:w-80 rounded-md'>
                   {nameSuggestions?.map(name => (
-                    <div>{name}</div>
+                    <div
+                      className='hover:font-bold'
+                      onClick={_ => setName(name)}
+                    >
+                      {name}
+                    </div>
                   ))}
                 </div>
               </Popover.Panel>

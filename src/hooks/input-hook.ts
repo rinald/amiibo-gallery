@@ -10,6 +10,7 @@ const useInput = (type: string) => {
 
   return {
     value,
+    setValue,
     type,
     onChange,
   }
