@@ -1,8 +1,8 @@
 import React from 'react'
-import SearchBar from './components/SearchBar'
+import HomePage from './pages/HomePage'
 
 const App = () => {
-  return <SearchBar />
+  return <HomePage />
 }
 
 export default App
