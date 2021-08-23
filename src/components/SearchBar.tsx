@@ -24,8 +24,9 @@ const SearchBar: React.FC<Props> = ({ search }) => {
             <Popover className='relative'>
               <Popover.Panel static className='absolute z-10 mx-5 my-12'>
                 <div className='flex flex-col divide-y gap-2 bg-gray-200 p-4 w-64 sm:w-80 rounded-md'>
-                  {nameSuggestions?.map(name => (
+                  {nameSuggestions?.map((name, index) => (
                     <div
+                      key={`${name}-${index}`}
                       className='hover:font-bold'
                       onClick={_ => setName(name)}
                     >

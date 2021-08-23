@@ -20,7 +20,7 @@ const useAutocomplete = (character: string) => {
 const useAmiiboSearch = (character: string) => {
   const url = `${baseUrl}/amiibo`
   const { data, error } = useSWR<AmiiboResponse, Error>(
-    `${url}${character !== '' ? `?character=${character}` : ''}`,
+    `${url}?type=figure${character !== '' ? `&character=${character}` : ''}`,
   )
 
   return {

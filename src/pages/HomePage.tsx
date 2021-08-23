@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import SearchBar from '../components/SearchBar'
 import SearchResults from '../components/SearchResults'
-// import useInput from '../hooks/input-hook'
 
 const HomePage: React.FC = () => {
   const [query, setQuery] = useState('')
