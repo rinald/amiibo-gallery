@@ -13,7 +13,7 @@ const SearchResults: React.FC<Props> = ({ name }) => {
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div className='bg-gray-50 grid gap-2 m-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+    <div className='grid gap-2 m-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
       {data?.amiibo?.map(amiibo => (
         <AmiiboCard
           key={amiibo.character + '-' + amiibo.head + amiibo.tail}

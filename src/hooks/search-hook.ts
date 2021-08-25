@@ -14,7 +14,7 @@ const useAutocomplete = (character: string) => {
 
   characters = [...new Set(characters)]
 
-  return character !== '' ? characters.slice(0, 5) : undefined
+  return character !== '' ? characters.slice(0, 5) : []
 }
 
 const useAmiiboSearch = (character: string) => {
