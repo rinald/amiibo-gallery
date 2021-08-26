@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 import { Disclosure, Transition } from '@headlessui/react'
 import {
   ChevronDownIcon,
@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/solid'
 
-// import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { NotificationContext } from '../App'
 
 import type { Amiibo } from '../types/index'
 
@@ -23,6 +23,7 @@ const Img: React.FC<{ src: string }> = ({ src }) => (
 
 const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
   const [favorite, setFavorite] = useState(false)
+  const [, setNotification] = useContext(NotificationContext)
 
   return (
     <Transition
@@ -88,7 +89,13 @@ const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
           >
             <StarIconOutline
               className='absolute right-0 transition duration-200 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-125'
-              onClick={() => setFavorite(!favorite)}
+              onClick={() => {
+                setFavorite(!favorite)
+                setNotification({
+                  type: 'success',
+                  message: `Added ${amiibo.name} to favorites`,
+                })
+              }}
             />
           </Transition>
           <Transition
@@ -102,7 +109,13 @@ const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
           >
             <StarIconSolid
               className='absolute right-0 transition duration-200 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-150'
-              onClick={() => setFavorite(!favorite)}
+              onClick={() => {
+                setFavorite(!favorite)
+                setNotification({
+                  type: 'success',
+                  message: `Removed ${amiibo.name} from favorites`,
+                })
+              }}
             />
           </Transition>
         </div>
