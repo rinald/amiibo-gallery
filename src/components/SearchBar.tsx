@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, createRef } from 'react'
+import React, { createRef } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/outline'
 
@@ -27,6 +27,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
             {({ open }) => (
               <>
                 <input
+                  placeholder='Search amiibo'
                   ref={inputRef}
                   className='w-64 sm:w-96 p-2 focus:outline-none'
                   onChange={event => {
@@ -57,7 +58,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                           {nameSuggestions.map((name, index) => (
                             <div
                               key={`${name}-${index}`}
-                              className='hover:font-bold hover:bg-red-200 hover:text-red-500 p-2 cursor-pointer rounded-md'
+                              className='transition-all duration-200 ease-in-out hover:font-bold hover:bg-red-200 hover:text-red-500 p-2 cursor-pointer rounded-md'
                               onClick={_ => {
                                 setName(name)
                                 close(inputRef)
