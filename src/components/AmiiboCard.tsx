@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react'
-import { Disclosure, Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 import {
-  ChevronDownIcon,
+  InformationCircleIcon,
   StarIcon as StarIconOutline,
 } from '@heroicons/react/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/solid'
@@ -12,6 +12,7 @@ import type { Amiibo } from '../types/index'
 
 type Props = {
   amiibo: Amiibo
+  onExpand: () => void
 }
 
 const Img: React.FC<{ src: string }> = ({ src }) => (
@@ -21,7 +22,7 @@ const Img: React.FC<{ src: string }> = ({ src }) => (
   />
 )
 
-const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
+const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand }) => {
   const [favorite, setFavorite] = useState(false)
   const [, setNotification] = useContext(NotificationContext)
 
@@ -42,40 +43,6 @@ const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
         <div className='flex flex-col gap-2 p-2'>
           <div className='text-xl font-semibold'>{amiibo.character}</div>
           <div className='text-gray-600'>{amiibo.gameSeries}</div>
-          <Disclosure>
-            {({ open }) => (
-              <>
-                <Disclosure.Button>
-                  <div className='inline-flex flex-row p-2 gap-2 border bg-gray-50 hover:bg-gray-100 rounded-md text-gray-600'>
-                    <span>Release</span>
-
-                    <ChevronDownIcon
-                      className={`transition duration-100 ease-out h-6 w-6 ${
-                        open ? 'scale-y-[-1]' : ''
-                      }`}
-                    />
-                  </div>
-                </Disclosure.Button>
-                <Transition
-                  enter='transition duration-100 ease-out'
-                  enterFrom='transform scale-95 opacity-0'
-                  enterTo='transform scale-100 opacity-100'
-                  leave='transition duration-75 ease-out'
-                  leaveFrom='transform scale-100 opacity-100'
-                  leaveTo='transform scale-95 opacity-0'
-                >
-                  <Disclosure.Panel>
-                    <ul>
-                      <li>AU: {amiibo.release.au ?? 'Unreleaded'}</li>
-                      <li>EU: {amiibo.release.eu ?? 'Unreleaded'}</li>
-                      <li>JP: {amiibo.release.jp ?? 'Unreleaded'}</li>
-                      <li>NA: {amiibo.release.na ?? 'Unreleaded'}</li>
-                    </ul>
-                  </Disclosure.Panel>
-                </Transition>
-              </>
-            )}
-          </Disclosure>
         </div>
         <div className='ml-auto relative'>
           <Transition
@@ -88,7 +55,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
             leaveTo='opacity-0'
           >
             <StarIconOutline
-              className='absolute right-0 transition duration-200 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-125'
+              className='absolute right-0 transition duration-100 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-125'
               onClick={() => {
                 setFavorite(!favorite)
                 setNotification({
@@ -108,7 +75,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
             leaveTo='opacity-0'
           >
             <StarIconSolid
-              className='absolute right-0 transition duration-200 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-150'
+              className='absolute right-0 transition duration-100 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-150'
               onClick={() => {
                 setFavorite(!favorite)
                 setNotification({
@@ -118,6 +85,12 @@ const AmiiboCard: React.FC<Props> = ({ amiibo }) => {
               }}
             />
           </Transition>
+          <button className='absolute bottom-0 right-0 inline-flex gap-2'>
+            <InformationCircleIcon
+              className='w-6 h-6 text-gray-600 transition duration-100 ease-in-out hover:text-gray-400 hover:scale-110'
+              onClick={onExpand}
+            />
+          </button>
         </div>
       </div>
     </Transition>
