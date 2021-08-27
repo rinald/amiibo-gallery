@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import { SearchIcon } from '@heroicons/react/outline'
+import { SearchIcon, CogIcon } from '@heroicons/react/outline'
 
 import { useAutocomplete } from '../hooks/search-hook'
 import useInput from '../hooks/input-hook'
@@ -29,7 +29,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                 <input
                   placeholder='Search amiibo'
                   ref={inputRef}
-                  className='w-64 sm:w-96 p-2 focus:outline-none caret-red-500 car'
+                  className='w-64 sm:w-96 p-2 focus:outline-none caret-red-500'
                   onChange={event => {
                     event.preventDefault()
 
@@ -75,11 +75,13 @@ const SearchBar: React.FC<Props> = ({ search }) => {
               </>
             )}
           </Popover>
-
           <button onClick={event => search(event, textField.value)}>
-            <SearchIcon className='h-6 w-6 text-white hover:opacity-70' />
+            <SearchIcon className='h-7 w-7 text-white hover:text-gray-200 transition duration-100 ease-in-out hover:scale-110 ' />
           </button>
         </div>
+        <button>
+          <CogIcon className='h-7 w-7 text-white ml-auto mr-4 transition duration-100 ease-in-out hover:rotate-[24deg] hover:text-gray-200 hover:scale-110' />
+        </button>
       </div>
     </div>
   )

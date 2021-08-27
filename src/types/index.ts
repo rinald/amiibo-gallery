@@ -23,6 +23,11 @@ type AmiiboResponse = {
   amiibo: Amiibo[]
 }
 
+type ErrorResponse = {
+  code: number
+  error: string
+}
+
 type Response = {
   amiibo: { key: string; name: string }[]
 }
@@ -34,4 +39,4 @@ type Notification = {
 
 // type Endpoint = 'amiibo' | 'type' | 'gameseries' | 'amiiboseries' | 'character'
 
-export { Amiibo, AmiiboResponse, Response, Notification }
+export { Amiibo, AmiiboResponse, ErrorResponse, Response, Notification }

@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import type { AmiiboResponse, Response } from '../types/index'
+import type { AmiiboResponse, ErrorResponse, Response } from '../types/index'
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 const baseUrl = 'https://amiiboapi.com/api'
@@ -19,7 +19,7 @@ const useAutocomplete = (character: string) => {
 
 const useAmiiboSearch = (character: string) => {
   const url = `${baseUrl}/amiibo/`
-  const { data, error } = useSWR<AmiiboResponse, Error>(
+  const { data, error } = useSWR<AmiiboResponse | ErrorResponse, Error>(
     `${url}?type=figure${character !== '' ? `&character=${character}` : ''}`,
   )
 
