@@ -8,7 +8,9 @@ const HomePage: React.FC = () => {
   const [query, setQuery] = useState('')
 
   const search = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.FormEvent<HTMLInputElement>,
     nameQuery: string,
   ) => {
     event.preventDefault()

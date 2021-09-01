@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React, { useRef } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { SearchIcon, CogIcon } from '@heroicons/react/outline'
 
@@ -7,16 +7,23 @@ import useInput from '../hooks/input-hook'
 
 type Props = {
   search: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.FormEvent<HTMLInputElement>,
     nameQuery: string,
   ) => void
 }
 
-const popoverRef = createRef<HTMLButtonElement>()
-const inputRef = createRef<HTMLInputElement>()
-
 const SearchBar: React.FC<Props> = ({ search }) => {
-  const { setValue: setName, onChange, ...textField } = useInput('text')
+  const popoverRef = useRef<HTMLButtonElement | null>(null)
+
+  const {
+    setValue: setName,
+    onChange: _,
+    ref: inputRef,
+    ...textField
+  } = useInput('text')
+
   const nameSuggestions = useAutocomplete(textField.value)
 
   return (
@@ -40,9 +47,10 @@ const SearchBar: React.FC<Props> = ({ search }) => {
 
                     setName(event.target.value)
                   }}
+                  onSubmit={event => search(event, textField.value)}
                   {...textField}
                 />
-                <Popover.Button ref={popoverRef}></Popover.Button>
+                <Popover.Button ref={popoverRef} tabIndex={-1}></Popover.Button>
                 <Transition
                   enter='transition duration-100 ease-out'
                   enterFrom='transform scale-95 opacity-0'
@@ -51,21 +59,21 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                   leaveFrom='transform scale-100 opacity-100'
                   leaveTo='transform scale-95 opacity-0'
                 >
-                  <Popover.Panel className='absolute z-10 mx-2 my-2'>
+                  <Popover.Panel className='absolute z-10 my-1'>
                     {({ close }) =>
                       nameSuggestions.length !== 0 && (
-                        <div className='flex flex-col gap-2 bg-gray-50 p-2 w-64 sm:w-80 rounded-md border border-gray-300'>
+                        <div className='flex flex-col gap-2 bg-gray-50 p-2 w-64 sm:w-96 rounded-md border border-gray-300'>
                           {nameSuggestions.map((name, index) => (
-                            <div
+                            <button
                               key={`${name}-${index}`}
-                              className='transition-all duration-200 ease-in-out hover:font-bold hover:bg-red-200 hover:text-red-500 p-2 cursor-pointer rounded-md'
+                              className='text-left transition-all duration-200 ease-in-out hover:font-bold hover:bg-red-200 hover:text-red-500 p-2 cursor-pointer rounded-md focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-50'
                               onClick={_ => {
                                 setName(name)
                                 close(inputRef)
                               }}
                             >
                               {name}
-                            </div>
+                            </button>
                           ))}
                         </div>
                       )
@@ -76,7 +84,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
             )}
           </Popover>
           <button onClick={event => search(event, textField.value)}>
-            <SearchIcon className='h-7 w-7 text-white hover:text-gray-200 transition duration-100 ease-in-out hover:scale-110 ' />
+            <SearchIcon className='h-7 w-7 text-white hover:text-gray-200 transition duration-100 ease-in-out hover:scale-110' />
           </button>
         </div>
         <button>

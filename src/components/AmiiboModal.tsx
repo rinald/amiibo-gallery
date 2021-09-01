@@ -65,8 +65,9 @@ const AmiiboModal: React.FC<{
                 </p>
                 <p>
                   <b>Released: </b>
-                  {new Date(amiibo?.release.na ?? '').toLocaleDateString() ??
-                    'Unreleased'}
+                  {new Date(amiibo?.release.na ?? '').toLocaleDateString(
+                    'en-GB',
+                  ) ?? 'Unreleased'}
                 </p>
               </div>
 

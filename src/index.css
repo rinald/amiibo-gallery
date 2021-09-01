@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+  @apply focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-50;
+}
