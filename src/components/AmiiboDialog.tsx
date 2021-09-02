@@ -1,19 +1,27 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 import { Transition, Dialog } from '@headlessui/react'
 import type { Amiibo } from '../types'
 
-const AmiiboModal: React.FC<{
-  state: [Amiibo | null, React.Dispatch<React.SetStateAction<Amiibo | null>>]
-}> = ({ state }) => {
-  const [amiibo, setAmiibo] = state
+type Props = {
+  amiibo: Amiibo | null
+}
+
+const AmiiboDialog: React.FC<Props> = ({ amiibo }) => {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    if (amiibo !== null) {
+      setShow(true)
+    }
+  }, [amiibo])
 
   return (
-    <Transition appear show={amiibo !== null} as={Fragment}>
+    <Transition appear show={show} as={Fragment}>
       <Dialog
         as='div'
         className='fixed inset-0 z-10 overflow-y-auto'
-        onClose={() => setAmiibo(null)}
+        onClose={() => setShow(false)}
       >
         <div className='min-h-screen px-4 text-center'>
           <Transition.Child
@@ -75,7 +83,7 @@ const AmiiboModal: React.FC<{
                 <button
                   type='button'
                   className='inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500'
-                  onClick={() => setAmiibo(null)}
+                  onClick={() => setShow(false)}
                 >
                   Close
                 </button>
@@ -88,4 +96,4 @@ const AmiiboModal: React.FC<{
   )
 }
 
-export default AmiiboModal
+export default AmiiboDialog

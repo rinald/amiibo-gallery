@@ -5,6 +5,8 @@ import {
   StarIcon as StarIconOutline,
 } from '@heroicons/react/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/solid'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 import { NotificationContext } from '../App'
 
@@ -16,10 +18,18 @@ type Props = {
 }
 
 const Img: React.FC<{ src: string }> = ({ src }) => (
-  <img
-    src={src}
-    className='transition duration-200 ease-in-out w-2/5 hover:scale-110'
-  />
+  <div className='max-w-[40%] my-auto'>
+    <LazyLoadImage
+      src={src}
+      placeholder={
+        <img
+          src='images/amiibo-placeholder.png'
+          className='animate-pulse'
+        ></img>
+      }
+      className='transition duration-200 ease-in-out hover:scale-110'
+    />
+  </div>
 )
 
 const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand }) => {

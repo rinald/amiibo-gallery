@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { GlobeIcon, EmojiSadIcon } from '@heroicons/react/outline'
 
 import AmiiboCard from './AmiiboCard'
-import AmiiboModal from './AmiiboModal'
+import AmiiboDialog from './AmiiboDialog'
 
 import { useAmiiboSearch } from '../hooks/search-hook'
 import type { Amiibo } from '../types'
@@ -17,7 +17,7 @@ const SearchResults: React.FC<Props> = ({ name }) => {
 
   return (
     <div>
-      <AmiiboModal state={[amiibo, setAmiibo]} />
+      <AmiiboDialog amiibo={amiibo} />
       {isLoading ? (
         <div className='grid h-screen justify-center content-center'>
           <GlobeIcon className='w-32 h-32 animate-pulse text-gray-400' />
