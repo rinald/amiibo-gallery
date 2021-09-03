@@ -6,11 +6,15 @@ const Notification: React.FC = () => {
   const [notification, setNotification] = useContext(NotificationContext)
 
   useEffect(() => {
+    let timer: number
+
     if (notification !== null) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setNotification(null)
       }, 2000)
     }
+
+    return () => clearTimeout(timer)
   }, [notification])
 
   return (

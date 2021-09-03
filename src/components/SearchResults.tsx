@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { GlobeIcon, EmojiSadIcon } from '@heroicons/react/outline'
 
+import { trackWindowScroll } from 'react-lazy-load-image-component'
+import type { ScrollPosition } from 'react-lazy-load-image-component'
+
 import AmiiboCard from './AmiiboCard'
 import AmiiboDialog from './AmiiboDialog'
 
@@ -9,15 +12,16 @@ import type { Amiibo } from '../types'
 
 type Props = {
   name: string
+  scrollPosition: ScrollPosition
 }
 
-const SearchResults: React.FC<Props> = ({ name }) => {
+const SearchResults: React.FC<Props> = ({ name, scrollPosition }) => {
   const { data, isLoading } = useAmiiboSearch(name)
   const [amiibo, setAmiibo] = useState<Amiibo | null>(null)
 
   return (
     <div>
-      <AmiiboDialog amiibo={amiibo} />
+      <AmiiboDialog amiiboState={[amiibo, setAmiibo]} />
       {isLoading ? (
         <div className='grid h-screen justify-center content-center'>
           <GlobeIcon className='w-32 h-32 animate-pulse text-gray-400' />
@@ -29,6 +33,7 @@ const SearchResults: React.FC<Props> = ({ name }) => {
               key={amiibo.character + '-' + amiibo.head + amiibo.tail}
               amiibo={amiibo}
               onExpand={() => setAmiibo(amiibo)}
+              scrollPosition={scrollPosition}
             />
           ))}
         </div>
@@ -42,4 +47,4 @@ const SearchResults: React.FC<Props> = ({ name }) => {
   )
 }
 
-export default SearchResults
+export default trackWindowScroll(SearchResults)

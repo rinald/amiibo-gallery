@@ -1,23 +1,26 @@
 import React, { Fragment, useState, useContext } from 'react'
+import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component'
+
 import { Transition } from '@headlessui/react'
+import { StarIcon as StarIconSolid } from '@heroicons/react/solid'
 import {
   InformationCircleIcon,
   StarIcon as StarIconOutline,
 } from '@heroicons/react/outline'
-import { StarIcon as StarIconSolid } from '@heroicons/react/solid'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 import { NotificationContext } from '../App'
-
-import type { Amiibo } from '../types/index'
+import type { Amiibo } from '../types'
 
 type Props = {
   amiibo: Amiibo
   onExpand: () => void
+  scrollPosition: ScrollPosition
 }
 
-const Img: React.FC<{ src: string }> = ({ src }) => (
+const LazyImage: React.FC<{ src: string; scrollPosition: ScrollPosition }> = ({
+  src,
+  scrollPosition,
+}) => (
   <div className='max-w-[40%] my-auto'>
     <LazyLoadImage
       src={src}
@@ -28,11 +31,12 @@ const Img: React.FC<{ src: string }> = ({ src }) => (
         ></img>
       }
       className='transition duration-200 ease-in-out hover:scale-110'
+      scrollPosition={scrollPosition}
     />
   </div>
 )
 
-const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand }) => {
+const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
   const [favorite, setFavorite] = useState(false)
   const [, setNotification] = useContext(NotificationContext)
 
@@ -49,7 +53,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand }) => {
       leaveTo='opacity-0'
     >
       <div className='flex flex-row gap-2 p-4 border rounded-md border-gray-300 bg-white shadow-sm'>
-        <Img src={amiibo.image} />
+        <LazyImage src={amiibo.image} scrollPosition={scrollPosition} />
         <div className='flex flex-col gap-2 p-2'>
           <div className='text-xl font-semibold'>{amiibo.character}</div>
           <div className='text-gray-600'>{amiibo.gameSeries}</div>

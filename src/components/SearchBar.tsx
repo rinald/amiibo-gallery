@@ -36,7 +36,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                 <input
                   placeholder='Search amiibo'
                   ref={inputRef}
-                  className='w-64 sm:w-96 p-2 focus:outline-none caret-red-500'
+                  className='w-64 sm:w-96 p-2 focus:outline-none caret-red-500 rounded-md'
                   onChange={event => {
                     event.preventDefault()
 

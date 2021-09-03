@@ -4,17 +4,27 @@ import { Transition, Dialog } from '@headlessui/react'
 import type { Amiibo } from '../types'
 
 type Props = {
-  amiibo: Amiibo | null
+  amiiboState: [
+    Amiibo | null,
+    React.Dispatch<React.SetStateAction<Amiibo | null>>,
+  ]
 }
 
-const AmiiboDialog: React.FC<Props> = ({ amiibo }) => {
+const AmiiboDialog: React.FC<Props> = ({ amiiboState }) => {
   const [show, setShow] = useState(false)
+  const [amiibo, setAmiibo] = amiiboState
 
   useEffect(() => {
     if (amiibo !== null) {
       setShow(true)
     }
   }, [amiibo])
+
+  useEffect(() => {
+    if (!show) {
+      setTimeout(() => setAmiibo(null), 100)
+    }
+  }, [show])
 
   return (
     <Transition appear show={show} as={Fragment}>
@@ -23,7 +33,7 @@ const AmiiboDialog: React.FC<Props> = ({ amiibo }) => {
         className='fixed inset-0 z-10 overflow-y-auto'
         onClose={() => setShow(false)}
       >
-        <div className='min-h-screen px-4 text-center'>
+        <div className='flex items-center justify-center min-h-screen p-4'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -36,13 +46,6 @@ const AmiiboDialog: React.FC<Props> = ({ amiibo }) => {
             <Dialog.Overlay className='fixed inset-0 bg-black opacity-30' />
           </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
-          <span
-            className='inline-block h-screen align-middle'
-            aria-hidden='true'
-          >
-            &#8203;
-          </span>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -52,7 +55,7 @@ const AmiiboDialog: React.FC<Props> = ({ amiibo }) => {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg'>
+            <div className='relative bg-white rounded-2xl max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg w-full mx-auto p-6'>
               <Dialog.Title
                 as='h3'
                 className='text-lg font-medium leading-6 text-gray-900'
@@ -79,10 +82,10 @@ const AmiiboDialog: React.FC<Props> = ({ amiibo }) => {
                 </p>
               </div>
 
-              <div className='mt-4'>
+              <div className='mt-4 flex flex-row justify-end'>
                 <button
                   type='button'
-                  className='inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500'
+                  className=' px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500'
                   onClick={() => setShow(false)}
                 >
                   Close
