@@ -1,5 +1,8 @@
+import { useContext } from 'react'
 import useSWR from 'swr'
+
 import type { AmiiboResponse, ErrorResponse, Response } from '../types/index'
+import { SettingsContext } from '../App'
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 const baseUrl = 'https://amiiboapi.com/api'
@@ -18,9 +21,22 @@ const useAutocomplete = (character: string) => {
 }
 
 const useAmiiboSearch = (character: string) => {
+  const [settings] = useContext(SettingsContext)
+
+  let type: string
+  if (settings.figures) {
+    type = 'figure'
+  } else if (settings.cards) {
+    type = 'card'
+  } else if (settings.yarn) {
+    type = 'yarn'
+  } else {
+    type = ''
+  }
+
   const url = `${baseUrl}/amiibo/`
   const { data, error } = useSWR<AmiiboResponse | ErrorResponse, Error>(
-    `${url}?type=figure${character !== '' ? `&character=${character}` : ''}`,
+    `${url}?type=${type}${character !== '' ? `&character=${character}` : ''}`,
   )
 
   return {

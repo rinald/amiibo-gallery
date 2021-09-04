@@ -1,6 +1,8 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
+
+import { useDidMount } from './hooks/util'
 import HomePage from './pages/HomePage'
-import type { Notification } from './types'
+import type { Notification, Settings } from './types'
 
 const NotificationContext = createContext<
   [
@@ -9,15 +11,48 @@ const NotificationContext = createContext<
   ]
 >([null, () => {}])
 
+const defaultSettings: Settings = {
+  darkMode: false,
+  figures: true,
+  cards: false,
+  yarn: false,
+}
+
+const SettingsContext = createContext<
+  [Settings, React.Dispatch<React.SetStateAction<Settings>>]
+>([defaultSettings, () => {}])
+
 const App = () => {
   const [notification, setNotification] = useState<Notification | null>(null)
+  const [settings, setSettings] = useState<Settings>(defaultSettings)
+
+  const didMount = useDidMount()
+
+  // load user settings (if any) from local storage
+  useEffect(() => {
+    const userSettings = localStorage.getItem('settings')
+
+    if (userSettings) {
+      setSettings(JSON.parse(userSettings))
+    }
+  }, [])
+
+  // update settings on disk, to match client-side changes
+  useEffect(() => {
+    if (didMount) {
+      console.log('World')
+      localStorage.setItem('settings', JSON.stringify(settings))
+    }
+  }, [settings])
 
   return (
-    <NotificationContext.Provider value={[notification, setNotification]}>
-      <HomePage />
-    </NotificationContext.Provider>
+    <SettingsContext.Provider value={[settings, setSettings]}>
+      <NotificationContext.Provider value={[notification, setNotification]}>
+        <HomePage />
+      </NotificationContext.Provider>
+    </SettingsContext.Provider>
   )
 }
 
 export default App
-export { NotificationContext }
+export { NotificationContext, SettingsContext }

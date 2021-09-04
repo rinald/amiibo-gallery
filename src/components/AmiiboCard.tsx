@@ -74,7 +74,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
                 setFavorite(!favorite)
                 setNotification({
                   type: 'success',
-                  message: `Added ${amiibo.name} to favorites`,
+                  message: `Added '${amiibo.name}' to favorites`,
                 })
               }}
             />
@@ -94,7 +94,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
                 setFavorite(!favorite)
                 setNotification({
                   type: 'success',
-                  message: `Removed ${amiibo.name} from favorites`,
+                  message: `Removed '${amiibo.name}' from favorites`,
                 })
               }}
             />

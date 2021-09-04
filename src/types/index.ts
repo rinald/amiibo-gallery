@@ -37,6 +37,19 @@ type Notification = {
   message: string
 }
 
-// type Endpoint = 'amiibo' | 'type' | 'gameseries' | 'amiiboseries' | 'character'
+type Settings = {
+  [key in 'darkMode' | 'figures' | 'cards' | 'yarn']: boolean
+  //   darkMode: boolean
+  //   figures: boolean
+  //   cards: boolean
+  //   yarn: boolean
+}
 
-export { Amiibo, AmiiboResponse, ErrorResponse, Response, Notification }
+export {
+  Amiibo,
+  AmiiboResponse,
+  ErrorResponse,
+  Response,
+  Notification,
+  Settings,
+}

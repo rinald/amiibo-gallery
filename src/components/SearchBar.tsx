@@ -1,6 +1,8 @@
-import React, { useRef } from 'react'
+import React, { Fragment, useRef } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { SearchIcon, CogIcon } from '@heroicons/react/outline'
+
+import SettingSwitch from './SettingSwitch'
 
 import { useAutocomplete } from '../hooks/search-hook'
 import useInput from '../hooks/input-hook'
@@ -59,7 +61,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                   leaveFrom='transform scale-100 opacity-100'
                   leaveTo='transform scale-95 opacity-0'
                 >
-                  <Popover.Panel className='absolute z-10 my-1'>
+                  <Popover.Panel className='absolute z-10 right-0 mt-1'>
                     {({ close }) =>
                       nameSuggestions.length !== 0 && (
                         <div className='flex flex-col gap-2 bg-gray-50 p-2 w-64 sm:w-96 rounded-md border border-gray-300'>
@@ -87,9 +89,20 @@ const SearchBar: React.FC<Props> = ({ search }) => {
             <SearchIcon className='h-7 w-7 text-white hover:text-gray-200 transition duration-100 ease-in-out hover:scale-110' />
           </button>
         </div>
-        <button>
-          <CogIcon className='h-7 w-7 text-white ml-auto mr-4 transition duration-100 ease-in-out hover:rotate-[24deg] hover:text-gray-200 hover:scale-110' />
-        </button>
+
+        <Popover className='flex flex-row my-auto relative'>
+          <Popover.Button>
+            <CogIcon className='h-7 w-7 text-white mr-4 transition duration-100 ease-in-out hover:rotate-[24deg] hover:text-gray-200 hover:scale-110 my-auto' />
+          </Popover.Button>
+          <Popover.Panel className='absolute z-10 top-10 right-2'>
+            <div className='flex flex-col gap-2 bg-gray-50 p-4 w-64 rounded-md border border-gray-300'>
+              <SettingSwitch label='Dark Mode' />
+              <SettingSwitch label='Show Figures' />
+              <SettingSwitch label='Show Cards' />
+              <SettingSwitch label='Show Yarn' />
+            </div>
+          </Popover.Panel>
+        </Popover>
       </div>
     </div>
   )

@@ -29,9 +29,9 @@ const Notification: React.FC = () => {
     >
       {notification ? (
         <div
-          className={`fixed bottom-5 right-5 p-2 rounded-md ${
+          className={`fixed w-screen bottom-0 sm:w-max sm:bottom-5 sm:right-5 p-2 sm:rounded-md ${
             notification.type === 'success'
-              ? 'bg-green-200 text-green-600'
+              ? 'bg-gray-300 text-gray-800'
               : 'bg-red-200 text-red-600'
           } font-semibold text-lg`}
         >
