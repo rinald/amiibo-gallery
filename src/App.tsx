@@ -13,9 +13,7 @@ const NotificationContext = createContext<
 
 const defaultSettings: Settings = {
   darkMode: false,
-  figures: true,
-  cards: false,
-  yarn: false,
+  amiiboType: 'figure',
 }
 
 const SettingsContext = createContext<
@@ -40,7 +38,6 @@ const App = () => {
   // update settings on disk, to match client-side changes
   useEffect(() => {
     if (didMount) {
-      console.log('World')
       localStorage.setItem('settings', JSON.stringify(settings))
     }
   }, [settings])

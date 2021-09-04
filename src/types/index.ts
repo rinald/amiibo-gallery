@@ -38,11 +38,8 @@ type Notification = {
 }
 
 type Settings = {
-  [key in 'darkMode' | 'figures' | 'cards' | 'yarn']: boolean
-  //   darkMode: boolean
-  //   figures: boolean
-  //   cards: boolean
-  //   yarn: boolean
+  darkMode: boolean
+  amiiboType: 'figure' | 'card' | 'yarn'
 }
 
 export {

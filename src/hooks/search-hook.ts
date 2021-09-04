@@ -23,20 +23,11 @@ const useAutocomplete = (character: string) => {
 const useAmiiboSearch = (character: string) => {
   const [settings] = useContext(SettingsContext)
 
-  let type: string
-  if (settings.figures) {
-    type = 'figure'
-  } else if (settings.cards) {
-    type = 'card'
-  } else if (settings.yarn) {
-    type = 'yarn'
-  } else {
-    type = ''
-  }
-
   const url = `${baseUrl}/amiibo/`
   const { data, error } = useSWR<AmiiboResponse | ErrorResponse, Error>(
-    `${url}?type=${type}${character !== '' ? `&character=${character}` : ''}`,
+    `${url}?type=${settings.amiiboType ?? 'figure'}${
+      character !== '' ? `&character=${character}` : ''
+    }`,
   )
 
   return {

@@ -22,7 +22,7 @@ const AmiiboDialog: React.FC<Props> = ({ amiiboState }) => {
 
   useEffect(() => {
     if (!show) {
-      setTimeout(() => setAmiibo(null), 100)
+      setTimeout(() => setAmiibo(null), 200)
     }
   }, [show])
 

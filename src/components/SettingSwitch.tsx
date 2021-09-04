@@ -1,34 +1,19 @@
-import React, { useState, useContext, useRef, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Switch } from '@headlessui/react'
 
 import { SettingsContext, NotificationContext } from '../App'
 import { useDidMount } from '../hooks/util'
 
-type Label = 'Dark Mode' | 'Show Figures' | 'Show Cards' | 'Show Yarn'
-
 type Props = {
-  label: Label
+  label: string
+  setting: string
+  value: boolean
 }
 
-const mapLabelToSetting = (label: Label) => {
-  switch (label) {
-    case 'Dark Mode':
-      return 'darkMode'
-    case 'Show Figures':
-      return 'figures'
-    case 'Show Cards':
-      return 'cards'
-    case 'Show Yarn':
-      return 'yarn'
-  }
-}
-
-const SettingSwitch: React.FC<Props> = ({ label }) => {
-  const setting = mapLabelToSetting(label) // settings field corresponding to label
-
+const SettingSwitch: React.FC<Props> = ({ label, setting, value }) => {
   const [settings, setSettings] = useContext(SettingsContext) // get user settings from global context
   const [, setNotification] = useContext(NotificationContext) // used to show notifications to reflect settings changes
-  const [enabled, setEnabled] = useState(settings[setting]) // state of the switch
+  const [enabled, setEnabled] = useState(value) // state of the switch
 
   const didMount = useDidMount() // check if component mounted
 
@@ -69,4 +54,3 @@ const SettingSwitch: React.FC<Props> = ({ label }) => {
 }
 
 export default SettingSwitch
-export { Label, mapLabelToSetting }

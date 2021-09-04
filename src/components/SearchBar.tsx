@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { SearchIcon, CogIcon } from '@heroicons/react/outline'
 
@@ -6,6 +6,8 @@ import SettingSwitch from './SettingSwitch'
 
 import { useAutocomplete } from '../hooks/search-hook'
 import useInput from '../hooks/input-hook'
+import { SettingsContext } from '../App'
+import AmiiboTypeSwitcher from './AmiiboTypeSwitcher'
 
 type Props = {
   search: (
@@ -18,6 +20,7 @@ type Props = {
 
 const SearchBar: React.FC<Props> = ({ search }) => {
   const popoverRef = useRef<HTMLButtonElement | null>(null)
+  const [settings] = useContext(SettingsContext)
 
   const {
     setValue: setName,
@@ -95,11 +98,13 @@ const SearchBar: React.FC<Props> = ({ search }) => {
             <CogIcon className='h-7 w-7 text-white mr-4 transition duration-100 ease-in-out hover:rotate-[24deg] hover:text-gray-200 hover:scale-110 my-auto' />
           </Popover.Button>
           <Popover.Panel className='absolute z-10 top-10 right-2'>
-            <div className='flex flex-col gap-2 bg-gray-50 p-4 w-64 rounded-md border border-gray-300'>
-              <SettingSwitch label='Dark Mode' />
-              <SettingSwitch label='Show Figures' />
-              <SettingSwitch label='Show Cards' />
-              <SettingSwitch label='Show Yarn' />
+            <div className='flex flex-col gap-2 divide-y-2 bg-gray-50 p-4 w-64 rounded-md border border-gray-300'>
+              <SettingSwitch
+                label='Dark Mode'
+                setting='darkMode'
+                value={settings.darkMode}
+              />
+              <AmiiboTypeSwitcher />
             </div>
           </Popover.Panel>
         </Popover>
