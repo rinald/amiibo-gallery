@@ -30,7 +30,7 @@ const AmiiboDialog: React.FC<Props> = ({ amiiboState }) => {
     <Transition appear show={show} as={Fragment}>
       <Dialog
         as='div'
-        className='fixed inset-0 z-10 overflow-y-auto'
+        className='dark fixed inset-0 z-10 overflow-y-auto'
         onClose={() => setShow(false)}
       >
         <div className='flex items-center justify-center min-h-screen p-4'>
@@ -55,37 +55,37 @@ const AmiiboDialog: React.FC<Props> = ({ amiiboState }) => {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='relative bg-white rounded-2xl max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg w-full mx-auto p-6'>
+            <div className='relative bg-white dark:bg-gray-700 dark:text-white rounded-2xl max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg w-full mx-auto p-6'>
               <Dialog.Title
                 as='h3'
-                className='text-lg font-medium leading-6 text-gray-900'
+                className='font-header text-xl font-bold leading-6 text-gray-900 dark:text-white'
               >
                 {amiibo?.character}
               </Dialog.Title>
-              <div className='mt-2'>
-                <p>
+              <ul className='mt-2'>
+                <li>
                   <b>Name: </b>
                   {amiibo?.name}
-                </p>
-                <p>
+                </li>
+                <li>
                   <b>Franchise: </b> {amiibo?.gameSeries}
-                </p>
-                <p>
+                </li>
+                <li>
                   <b>Series: </b>
                   {amiibo?.amiiboSeries}
-                </p>
-                <p>
+                </li>
+                <li>
                   <b>Released: </b>
                   {new Date(amiibo?.release.na ?? '').toLocaleDateString(
                     'en-GB',
                   ) ?? 'Unreleased'}
-                </p>
-              </div>
+                </li>
+              </ul>
 
               <div className='mt-4 flex flex-row justify-end'>
                 <button
                   type='button'
-                  className=' px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500'
+                  className='font-semibold px-4 py-2 text-sm text-red-900 dark:text-gray-800 bg-red-100 dark:bg-gray-300 border border-transparent rounded-md hover:bg-red-200 dark:hover:bg-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500'
                   onClick={() => setShow(false)}
                 >
                   Close

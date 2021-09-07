@@ -38,7 +38,9 @@ const SettingSwitch: React.FC<Props> = ({ label, setting, value }) => {
           checked={enabled}
           onChange={setEnabled}
           className={`${
-            enabled ? 'bg-red-600' : 'bg-gray-200'
+            enabled
+              ? 'bg-red-600 dark:bg-gray-900'
+              : 'bg-gray-200 dark:bg-gray-700'
           } relative inline-flex items-center h-6 rounded-full w-11`}
         >
           <span className='sr-only'>Enable notifications</span>

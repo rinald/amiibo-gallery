@@ -11,7 +11,9 @@ const AmiiboType: React.FC<{ value: string }> = ({ value }) => {
       {({ checked }) => (
         <div
           className={`flex flex-row justify-between p-2 hover:cursor-pointer rounded-md ${
-            checked ? 'bg-red-500 text-white font-bold' : 'hover:bg-red-200'
+            checked
+              ? 'bg-red-500 dark:bg-gray-900 text-white font-bold'
+              : 'hover:bg-red-200 dark:hover:bg-gray-700'
           }`}
         >
           <p className='first-letter:capitalize'>{value}</p>
@@ -34,7 +36,7 @@ const AmiiboTypeSwitcher: React.FC = () => {
     <RadioGroup
       value={amiiboType}
       onChange={setAmiiboType}
-      className='flex flex-col gap-2'
+      className='flex flex-col gap-2 pt-2'
     >
       <AmiiboType value='figure' />
       <AmiiboType value='card' />

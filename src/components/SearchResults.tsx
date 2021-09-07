@@ -25,7 +25,7 @@ const SearchResults: React.FC<Props> = ({ name, scrollPosition }) => {
       <AmiiboDialog amiiboState={[amiibo, setAmiibo]} />
       {isLoading ? (
         <div className='grid h-screen justify-center content-center'>
-          <GlobeIcon className='w-32 h-32 animate-pulse text-gray-400' />
+          <GlobeIcon className='w-32 h-32 animate-pulse text-gray-400 dark:text-white' />
         </div>
       ) : data && 'amiibo' in data ? (
         <div
@@ -41,8 +41,8 @@ const SearchResults: React.FC<Props> = ({ name, scrollPosition }) => {
           ))}
         </div>
       ) : (
-        <div className='grid h-screen justify-center content-center '>
-          <EmojiSadIcon className='w-32 h-32 text-gray-400 mx-auto' />
+        <div className='grid h-screen justify-center content-center dark:text-white'>
+          <EmojiSadIcon className='w-32 h-32 text-gray-400 dark:text-white mx-auto' />
           {name !== '' ? (
             <p>No search results for {name}</p>
           ) : (
@@ -53,7 +53,10 @@ const SearchResults: React.FC<Props> = ({ name, scrollPosition }) => {
               {suggestions[0] !== name && (
                 <p className='mx-auto'>
                   Did you mean{' '}
-                  <span className='text-red-500'>{suggestions[0]}</span>?
+                  <span className='text-red-500 dark:text-red-300'>
+                    {suggestions[0]}
+                  </span>
+                  ?
                 </p>
               )}
             </>

@@ -33,7 +33,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
 
   return (
     <div>
-      <div className='flex flex-row py-2 bg-red-600'>
+      <div className='flex flex-row py-2 bg-red-600 dark:bg-gray-900'>
         <div className='flex flex-row gap-4 p-2 mx-auto'>
           <Popover className='relative'>
             {({ open }) => (
@@ -41,7 +41,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                 <input
                   placeholder='Search amiibo'
                   ref={inputRef}
-                  className='w-64 sm:w-96 p-2 focus:outline-none caret-red-500 rounded-md'
+                  className='w-64 sm:w-96 p-2 focus:outline-none caret-red-500 dark:caret-gray-900 dark:bg-gray-500 dark:placeholder-white dark:text-white rounded-md'
                   onChange={event => {
                     event.preventDefault()
 
@@ -67,17 +67,17 @@ const SearchBar: React.FC<Props> = ({ search }) => {
                   <Popover.Panel className='absolute z-10 right-0 mt-1'>
                     {({ close }) =>
                       nameSuggestions.length !== 0 && (
-                        <div className='flex flex-col gap-2 bg-gray-50 p-2 w-64 sm:w-96 rounded-md border border-gray-300'>
+                        <div className='flex flex-col gap-2 bg-gray-50 dark:bg-gray-500 p-2 w-64 sm:w-96 rounded-md border border-gray-300 dark:border-gray-800'>
                           {nameSuggestions.map((name, index) => (
                             <button
                               key={`${name}-${index}`}
-                              className='text-left transition-all duration-200 ease-in-out hover:font-bold hover:bg-red-200 hover:text-red-500 p-2 cursor-pointer rounded-md focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-50'
+                              className='text-left transition-all duration-200 ease-in-out hover:font-bold hover:bg-red-200 dark:hover:bg-gray-800 hover:text-red-500 dark:hover:text-white p-2 cursor-pointer rounded-md focus:outline-none focus-visible:ring focus-visible:ring-red-500 dark:focus-visible:ring-gray-700'
                               onClick={_ => {
                                 setName(name)
                                 close(inputRef)
                               }}
                             >
-                              {name}
+                              <span className='dark:text-white'>{name}</span>
                             </button>
                           ))}
                         </div>
@@ -98,7 +98,7 @@ const SearchBar: React.FC<Props> = ({ search }) => {
             <CogIcon className='h-7 w-7 text-white mr-4 transition duration-100 ease-in-out hover:rotate-[24deg] hover:text-gray-200 hover:scale-110 my-auto' />
           </Popover.Button>
           <Popover.Panel className='absolute z-10 top-10 right-2'>
-            <div className='flex flex-col gap-2 divide-y-2 bg-gray-50 p-4 w-64 rounded-md border border-gray-300'>
+            <div className='dark:text-white flex flex-col gap-2 divide-y-2 dark:divide-gray-900 bg-gray-50 dark:bg-gray-500 p-4 w-64 rounded-md border border-gray-300 dark:border-gray-800'>
               <SettingSwitch
                 label='Dark Mode'
                 setting='darkMode'

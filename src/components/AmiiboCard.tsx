@@ -52,11 +52,13 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
       leaveFrom='opacity-100'
       leaveTo='opacity-0'
     >
-      <div className='flex flex-row gap-2 p-4 border rounded-md border-gray-300 bg-white shadow-sm'>
+      <div className='flex flex-row gap-2 p-4 border rounded-md border-gray-300 dark:border-none bg-white dark:bg-gray-900 shadow-sm'>
         <LazyImage src={amiibo.image} scrollPosition={scrollPosition} />
         <div className='flex flex-col gap-2 p-2'>
-          <div className='text-xl font-semibold'>{amiibo.character}</div>
-          <div className='text-gray-600'>{amiibo.gameSeries}</div>
+          <div className='prose prose-2xl font-header font-semibold dark:text-white'>
+            {amiibo.character}
+          </div>
+          <div className='prose dark:text-gray-200'>{amiibo.gameSeries}</div>
         </div>
         <div className='ml-auto relative'>
           <Transition
@@ -69,7 +71,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
             leaveTo='opacity-0'
           >
             <StarIconOutline
-              className='absolute right-0 transition duration-100 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-125'
+              className='absolute right-0 transition duration-100 ease-in-out w-6 h-6 text-yellow-400 dark:text-yellow-200 hover:text-yellow-600 dark:hover:text-yellow-400 hover:cursor-pointer hover:scale-125'
               onClick={() => {
                 setFavorite(!favorite)
                 setNotification({
@@ -89,7 +91,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
             leaveTo='opacity-0'
           >
             <StarIconSolid
-              className='absolute right-0 transition duration-100 ease-in-out w-6 h-6 text-yellow-400 hover:text-yellow-600 hover:cursor-pointer hover:scale-150'
+              className='absolute right-0 transition duration-100 ease-in-out w-6 h-6 text-yellow-400 dark:text-yellow-200 hover:text-yellow-600 dark:hover:text-yellow-400 hover:cursor-pointer hover:scale-150'
               onClick={() => {
                 setFavorite(!favorite)
                 setNotification({
@@ -101,7 +103,7 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
           </Transition>
           <button className='absolute bottom-0 right-0 inline-flex gap-2'>
             <InformationCircleIcon
-              className='w-6 h-6 text-gray-600 transition duration-100 ease-in-out hover:text-gray-400 hover:scale-110'
+              className='w-6 h-6 text-gray-600 dark:text-gray-200 transition duration-100 ease-in-out hover:text-gray-400 hover:scale-110'
               onClick={onExpand}
             />
           </button>
