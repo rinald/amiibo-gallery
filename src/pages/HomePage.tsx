@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
   const search = (
     event:
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
-      | React.FormEvent<HTMLInputElement>,
+      | React.FormEvent<HTMLFormElement>,
     nameQuery: string,
   ) => {
     event.preventDefault()
@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={settings.darkMode ? 'dark' : ''}>
-      <div className='min-h-screen h-full dark:bg-gray-600'>
+      <div className='min-h-screen h-full dark:bg-gray-600 pb-[2px]'>
         <SearchBar search={search} />
         <SearchResults name={query} />
         <Notification />

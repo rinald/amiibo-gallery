@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { GlobeIcon, EmojiSadIcon } from '@heroicons/react/outline'
 
 import { trackWindowScroll } from 'react-lazy-load-image-component'
@@ -6,6 +6,8 @@ import type { ScrollPosition } from 'react-lazy-load-image-component'
 
 import AmiiboCard from './AmiiboCard'
 import AmiiboDialog from './AmiiboDialog'
+
+import { SettingsContext } from '../App'
 
 import { useAmiiboSearch, useAutocomplete } from '../hooks/search-hook'
 import type { Amiibo } from '../types'
@@ -19,10 +21,14 @@ const SearchResults: React.FC<Props> = ({ name, scrollPosition }) => {
   const { data, isLoading } = useAmiiboSearch(name)
   const [amiibo, setAmiibo] = useState<Amiibo | null>(null)
   const suggestions = useAutocomplete(name)
+  const [settings] = useContext(SettingsContext)
 
   return (
     <div>
-      <AmiiboDialog amiiboState={[amiibo, setAmiibo]} />
+      <AmiiboDialog
+        amiiboState={[amiibo, setAmiibo]}
+        darkMode={settings.darkMode}
+      />
       {isLoading ? (
         <div className='grid h-screen justify-center content-center'>
           <GlobeIcon className='w-32 h-32 animate-pulse text-gray-400 dark:text-white' />

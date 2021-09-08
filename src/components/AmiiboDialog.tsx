@@ -8,9 +8,10 @@ type Props = {
     Amiibo | null,
     React.Dispatch<React.SetStateAction<Amiibo | null>>,
   ]
+  darkMode: boolean
 }
 
-const AmiiboDialog: React.FC<Props> = ({ amiiboState }) => {
+const AmiiboDialog: React.FC<Props> = ({ amiiboState, darkMode }) => {
   const [show, setShow] = useState(false)
   const [amiibo, setAmiibo] = amiiboState
 
@@ -30,7 +31,9 @@ const AmiiboDialog: React.FC<Props> = ({ amiiboState }) => {
     <Transition appear show={show} as={Fragment}>
       <Dialog
         as='div'
-        className='dark fixed inset-0 z-10 overflow-y-auto'
+        className={`${
+          darkMode ? 'dark' : ''
+        } fixed inset-0 z-10 overflow-y-auto`}
         onClose={() => setShow(false)}
       >
         <div className='flex items-center justify-center min-h-screen p-4'>
