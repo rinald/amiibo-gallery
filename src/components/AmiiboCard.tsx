@@ -25,10 +25,7 @@ const LazyImage: React.FC<{ src: string; scrollPosition: ScrollPosition }> = ({
     <LazyLoadImage
       src={src}
       placeholder={
-        <img
-          src='images/amiibo-placeholder.png'
-          className='animate-pulse'
-        ></img>
+        <img src='img/amiibo-placeholder.png' className='animate-pulse'></img>
       }
       className='transition duration-200 ease-in-out hover:scale-110'
       scrollPosition={scrollPosition}
