@@ -52,10 +52,10 @@ const AmiiboCard: React.FC<Props> = ({ amiibo, onExpand, scrollPosition }) => {
       <div className='flex flex-row gap-2 p-4 border rounded-md border-gray-300 dark:border-none bg-white dark:bg-gray-900 shadow-sm'>
         <LazyImage src={amiibo.image} scrollPosition={scrollPosition} />
         <div className='flex flex-col gap-2 p-2'>
-          <div className='prose prose-2xl font-header font-semibold dark:text-white'>
+          <div className='text-2xl font-header font-semibold dark:text-white'>
             {amiibo.character}
           </div>
-          <div className='prose dark:text-gray-200'>{amiibo.gameSeries}</div>
+          <div className='dark:text-gray-200'>{amiibo.gameSeries}</div>
         </div>
         <div className='ml-auto relative'>
           <Transition
