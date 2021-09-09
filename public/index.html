@@ -2,23 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Explore amiibo accessories with ease" />
+    <link rel="manifest" href="manifest.json" />
     <link
       rel="preload"
       href="https://amiiboapi.com/api/character/"
       as="fetch"
       crossorigin="anonymous"
     />
-    <link rel="preload" as="image" href="images/amiibo-placeholder.png" />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="preload" as="image" href="img/amiibo-placeholder.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Urbanist:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate'
+      const el = document.createElement('pwa-update')
+      document.body.appendChild(el)
+    </script>
     <title>Amiibo Gallery</title>
   </head>
   <body>
